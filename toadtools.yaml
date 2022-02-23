@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: toadtools
+  labels:
+    app: toadtools
+spec:
+  selector:
+    matchLabels:
+      app: toadtools
+  template:
+    metadata:
+      labels:
+        app: toadtools
+    spec:
+      containers:
+        - name: toadtools
+          image: toadtools:latest
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 5000
+          volumeMounts:
+            - name: toadtools-data
+              mountPath: /media/
+      volumes:
+      - name: toadtools-data
+        hostPath:
+          path: /home/
+          type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: toadtools
+  labels:
+    name: toadtools
+spec:
+  ports:
+    - port: 80
+      name: http
+      nodePort: 31500
+      protocol: TCP
+      targetPort: 5000
+  type: LoadBalancer
+  selector:
+    app: toadtools
