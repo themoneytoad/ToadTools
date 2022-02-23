@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-ca">
+	<head>
+        <meta charset="utf-8">
+		<title>PyxlEd</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+    <body>
+        <div class="toolbar">
+			<div>
+            	<input type="text", id="filename" name="filename">
+				<label for="filename">Filename</label>
+			</div>
+			<div>
+            	<input type="color", id="color" name="color" value="#e66465">
+				<label for="color">Color</label>
+			</div>
+			<div>
+				<button type="button">Color</button>
+			</div>
+        </div>
+		<script type="text/javascript" src="{{url_for('static',filename='init.js')}}"></script>
+    </body>
+</html>
