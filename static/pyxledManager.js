@@ -17,6 +17,13 @@ export class PyxledManager {
 	}
 
 	init() {
+		document.getElementById("file").addEventListener("click", (e)=>this.optionsFile());
+		document.getElementById("paint").addEventListener("click", (e)=>this.optionsPaint());
+		document.getElementById("eraser").addEventListener("click", (e)=>this.optionsEraser());
+		document.getElementById("bucket").addEventListener("click", (e)=>this.optionsBucket());
+		document.getElementById("palette").addEventListener("click", (e)=>this.optionsPalette());
+		document.getElementById("undo").addEventListener("click", (e)=>this.optionsUndo());
+		document.getElementById("redo").addEventListener("click", (e)=>this.optionsRedo());
 		console.log("Pyxled Manager Initialized")
 		this.inputMan.init()
 		console.log("Input Manager Initialized")
@@ -89,6 +96,39 @@ export class PyxledManager {
 			pixel.checkMouseClick(mousePos, color.value)
 		}
 	}
+	
+	optionsFile() {
+		console.log('file')
+	}
 
+	optionsPaint() {
+		console.log('paint')
+
+	}
+
+	optionsEraser() {
+		console.log('eraser')
+
+	}
+
+	optionsBucket() {
+		console.log('bucket')
+
+	}
+
+	optionsPalette() {
+		console.log('palette')
+
+	}
+
+	optionsUndo() {
+		console.log('undo')
+
+	}
+
+	optionsRedo() {
+		console.log('redo')
+
+	}
 }
 

@@ -17,7 +17,7 @@ body {
 
 .toolbar {
 	background-color: rgb(28, 28, 28);
-	width: 800px;
+	width: 900px;
 	border-radius: 3px;
 	margin-bottom: 1em;
 	display: flex;
@@ -30,6 +30,17 @@ body {
 	padding: 0 1em;
 }
 
+.btnIcon {
+	width: 70px;
+	height: 70px;
+	background: #EFEEE7
+}
+
+.icon {
+	width: 45px;
+	height: 45px;
+}
+
 .color {
 	padding: 0 .25em;
 	width: 100px;
@@ -38,20 +49,30 @@ body {
 
 .cnvDiv {
 	position: relative;
-	width: 1000px;
-	height: 1000px;
+	width: 900px;
+	height: 900px;
 	outline: 1px solid #aaa;
 }
 
 .cnv {
-	width: 1000px;
-	height: 1000px;
+	width: 900px;
+	height: 900px;
 
 }
 
 @media only screen and (max-width: 390px) and (orientation:portrait) {
 	.toolbar {
-		width: 380;
+		width: 385;
+	}
+
+	.btnIcon {
+		width: 53px;
+		height: 53px;
+	}
+	
+	.icon {
+		width: 40px;
+		height: 40px;
 	}
 
 	.cnvDiv {

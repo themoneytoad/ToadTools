@@ -8,17 +8,39 @@
 	</head>
     <body>
         <div class="toolbar">
+			<button class="btnIcon" id="file">
+				<img class="icon" src="{{url_for('static',filename='folder.svg')}}" />
+			</button>
+			<button class="btnIcon" id="paint">
+				<img class="icon" src="{{url_for('static',filename='brush.svg')}}" />
+			</button>
+			<button class="btnIcon" id="eraser">
+				<img class="icon" src="{{url_for('static',filename='eraser.svg')}}" />
+			</button>
+			<button class="btnIcon" id="bucket">
+				<img class="icon" src="{{url_for('static',filename='paint-bucket.svg')}}" />
+			</button>
+			<button class="btnIcon" id="palette">
+				<img class="icon" src="{{url_for('static',filename='palette.svg')}}" />
+			</button>
+			<button class="btnIcon" id="undo">
+				<img class="icon" src="{{url_for('static',filename='arrow-counterclockwise.svg')}}" />
+			</button>
+			<button class="btnIcon" id="redo">
+				<img class="icon" src="{{url_for('static',filename='arrow-clockwise.svg')}}" />
+			</button>
+        </div>
+		<div class="cnvDiv">
+			<canvas class="cnv" id="cnv"></canvas>
+		</div>
+		<div style="display: flex; flex-grow:2">
      		<input type="text", id="filename" name="filename">
 			<label for="filename">Filename</label>
         	<input type="color", id="color" class="color" value="#e66465">
 			<button class="btn">Reset</button>
      		<input type="text", id="imgSize" name="imgSize">
 			<label for="imgSize">Image Size</label>
-        </div>
-		<div class="cnvDiv">
-			<canvas class="cnv" id="cnv"></canvas>
 		</div>
-		<div style="display: flex; flex-grow:2"></div>
 		<script type="module" src="{{url_for('static',filename='init.js')}}"></script>
     </body>
 </html>
