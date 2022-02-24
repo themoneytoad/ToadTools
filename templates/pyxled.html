@@ -4,21 +4,20 @@
         <meta charset="utf-8">
 		<title>PyxlEd</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 	</head>
     <body>
         <div class="toolbar">
-			<div>
-            	<input type="text", id="filename" name="filename">
-				<label for="filename">Filename</label>
-			</div>
-			<div>
-            	<input type="color", id="color" name="color" value="#e66465">
-				<label for="color">Color</label>
-			</div>
-			<div>
-				<button type="button">Color</button>
-			</div>
+     		<input type="text", id="filename" name="filename">
+			<label for="filename">Filename</label>
+        	<input type="color", id="color" class="color" value="#e66465">
+			<button class="btn">Reset</button>
+     		<input type="text", id="imgSize" name="imgSize">
+			<label for="imgSize">Image Size</label>
         </div>
-		<script type="text/javascript" src="{{url_for('static',filename='init.js')}}"></script>
+		<div class="cnvDiv">
+			<canvas class="cnv" width="800" height="800" id="cnv"></canvas>
+		<div>
+		<script type="module" src="{{url_for('static',filename='init.js')}}"></script>
     </body>
 </html>

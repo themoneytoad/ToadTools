@@ -1,0 +1,48 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background: #333;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.toolbar {
+	background-color: rgb(28, 28, 28);
+	width: 800px;
+	border-radius: 3px;
+	padding: 1em;
+	margin-bottom: 1em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn, input{
+	height: 35px;
+	padding: 0 1em;
+}
+
+.color {
+	padding: 0 .25em;
+	width: 100px;
+	margin: 0 1em;
+}
+
+.cnvDiv {
+	position: relative;
+	width: 800;
+	height: 800;
+	outline: 1px solid #aaa;
+}
+
+.cnv {
+}
