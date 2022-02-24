@@ -4,11 +4,15 @@ import {Pixel} from './pixel.js'
 export class PyxledManager {
 	pixels = []
 
-	constructor(){
+	constructor(conf){
 		this.element = document.querySelector(".cnvDiv")
 		this.canvas = this.element.querySelector(".cnv")
 		this.ctx = this.canvas.getContext("2d")
-		this.inputMan = new InputManager()
+		this.canvas.width = this.element.getBoundingClientRect().width
+		this.canvas.height = this.element.getBoundingClientRect().height
+		this.canvas.style.width = this.element.innerWidth
+		this.canvas.style.height = this.element.innerHeight
+		this.inputMan = new InputManager({pyxled:this})
 		this.alphaBackgroundRectWidth = this.canvas.width / 8
 	}
 
@@ -20,6 +24,7 @@ export class PyxledManager {
 
 	startLoop() {
 		const step = () => {
+			this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height)
 			// do stuff
 			this.generateAlphaBackgroundGrid()
 			this.loopToUpdatePixels()	
@@ -62,6 +67,7 @@ export class PyxledManager {
 	}
 
 	generateAlphaBackgroundGrid() {
+		this.alphaBackgroundRectWidth = this.canvas.width / 8
 		for (var i=0; i<8; i++) {
 			for (var j=0; j<8; j++) {
 				this.ctx.beginPath()
@@ -74,6 +80,13 @@ export class PyxledManager {
 				this.ctx.fillRect(j * this.alphaBackgroundRectWidth, i * this.alphaBackgroundRectWidth, this.alphaBackgroundRectWidth, this.alphaBackgroundRectWidth)
 				this.ctx.stroke()
 			}
+		}
+	}
+
+	mouseClick(mousePos) {
+		const colorPicker = document.getElementById("color")
+		for (const pixel of this.pixels) {
+			pixel.checkMouseClick(mousePos, color.value)
 		}
 	}
 

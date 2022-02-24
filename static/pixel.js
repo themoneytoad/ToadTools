@@ -8,6 +8,7 @@ export class Pixel {
 	bShowGrid = true
 	gridLineWidth = "1";
 	bSelected = false
+	bHovered = false
 	size = 10
 	id = {
 		row: 0,
@@ -23,11 +24,12 @@ export class Pixel {
 		this.ctx = this.canvas.getContext("2d")
 		this.id = conf.id
 		this.size = conf.pixelSize || 10
+		console.log(this.size)
 	}
 
 	init() {
 		this.coordinates.x = this.id.col * this.size
-		this.coordinates.y = this.id.row * this.size 
+		this.coordinates.y = this.id.row * this.size
 	}
 
 	draw() {
@@ -50,11 +52,28 @@ export class Pixel {
 	}
 
 	checkMouseHover(mousePos) {
+		if (this.mouseInsidePixelCheck(mousePos)) {
+			this.bHovered = true
+		}
+		else {
+			this.bHovered = false
+		}
+	}
+
+	mouseInsidePixelCheck(mousePos) {
 		if (mousePos.x > this.coordinates.x &&
 			mousePos.x < this.coordinates.x + this.size &&
 			mousePos.y > this.coordinates.y &&
 			mousePos.y < this.coordinates.y + this.size) {
+			return true
+		}
+		return false
+	}
+
+	checkMouseClick(mousePos, color) {
+		if (this.mouseInsidePixelCheck(mousePos)) {
 			this.bSelected = true
+			this.setColor(color)
 		}
 		else {
 			this.bSelected = false
@@ -62,6 +81,26 @@ export class Pixel {
 	}
 
 	setColor(newColor) {
-		this.color = newColor
+		const translated = this.hexToRgbA(newColor)
+		this.color = {
+			r: translated[0],
+			g: translated[1],
+			b: translated[2],
+			a: 255
+		}
+		//console.log(this.hexToRgbA(newColor))
+	}
+
+	hexToRgbA(hex) {
+		var c
+		if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+			c=hex.substring(1).split('');
+			if(c.length == 3) {
+				c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+			}
+			c = '0x'+c.join('')
+			return [(c>>16)&255, (c>>8)&255, c&255]
+		}
+		throw new Error('Bad Hex')
 	}
 }

@@ -3,8 +3,8 @@
 	<head>
         <meta charset="utf-8">
 		<title>PyxlEd</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
     <body>
         <div class="toolbar">
@@ -16,8 +16,9 @@
 			<label for="imgSize">Image Size</label>
         </div>
 		<div class="cnvDiv">
-			<canvas class="cnv" width="800" height="800" id="cnv"></canvas>
-		<div>
+			<canvas class="cnv" id="cnv"></canvas>
+		</div>
+		<div style="display: flex; flex-grow:2"></div>
 		<script type="module" src="{{url_for('static',filename='init.js')}}"></script>
     </body>
 </html>

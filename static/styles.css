@@ -11,15 +11,14 @@ body {
 	background: #333;
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	flex-direction: column;
+	align-items: center;
 }
 
 .toolbar {
 	background-color: rgb(28, 28, 28);
 	width: 800px;
 	border-radius: 3px;
-	padding: 1em;
 	margin-bottom: 1em;
 	display: flex;
 	justify-content: center;
@@ -39,10 +38,31 @@ body {
 
 .cnvDiv {
 	position: relative;
-	width: 800;
-	height: 800;
+	width: 1000px;
+	height: 1000px;
 	outline: 1px solid #aaa;
 }
 
 .cnv {
+	width: 1000px;
+	height: 1000px;
+
+}
+
+@media only screen and (max-width: 390px) and (orientation:portrait) {
+	.toolbar {
+		width: 380;
+	}
+
+	.cnvDiv {
+		position: relative;
+		width: 385px;
+		height: 385px;
+		outline: 1px solid #aaa;
+	}
+
+	.cnv {
+		width: 385px;
+		height: 385px;
+	}
 }
