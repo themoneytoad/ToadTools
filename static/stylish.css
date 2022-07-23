@@ -1,0 +1,95 @@
+body {
+    background-color: #2D3134;
+}
+
+a {
+    font-family: "Barlow", serif;
+    color: #F7F8FB;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+a:hover {
+    color: #1A1A1A;
+}
+
+.a2 {
+    font-family: "Barlow", serif;
+    color: #EFEEE7;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+}
+
+.a2:hover {
+    color: #79B5DD;
+}
+
+.bar  {
+    background-color: #1A1A1A;
+    height: 45pt;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.bar-item {
+    background-color: #1A1A1A;
+    color: #F7F8FB;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.bar-item:hover {
+    background-color: #E1E1E1
+}
+
+.container {
+    width: 100%;
+}
+
+h1 {
+    font-family: "Barlow", serif;
+    color: #F7F8FB;
+    text-decoration: none;
+    font-size: 30px;
+    text-align: center;
+}
+
+h2 {
+    font-family: "Barlow", serif;
+    color: #F7F8FB;
+    text-decoration: none;
+    font-size: 24px;
+    text-align: center;
+}
+
+.mugshot {
+    width: 280px;
+    height: 280px;
+    position: relative;
+    top: -180px;
+    display: flex;
+}
+
+p {
+    font-family: "Barlow", serif;
+    color: #F7F8FB;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    margin-left: 15%;
+    width: 70%;
+}
+
+.spacer {
+    width: 70%;
+    height: 1px;
+    background-color: #FFFFFF;
+    margin-left: 15%;
+}

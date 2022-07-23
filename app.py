@@ -4,6 +4,10 @@ import click
 
 app = Flask(__name__)
 
+@app.route('/level')
+def level():
+	return render_template("level.html")
+
 @app.route('/pyxled')
 def pyxled():
 	return render_template("pyxled.html")
