@@ -1,5 +1,6 @@
 body {
     background-color: #2D3134;
+    height: 100%;
 }
 
 a {
@@ -55,6 +56,14 @@ a:hover {
     width: 100%;
 }
 
+.container-tiles {
+    width: 100%;
+    overflow: auto;
+    height: 85vh;
+    display: grid;
+    gap: 0; 
+}
+
 h1 {
     font-family: "Barlow", serif;
     color: #F7F8FB;
@@ -96,6 +105,16 @@ p {
     margin-left: 15%;
 }
 
+.tile {
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    font-family: "Barlow", serif;
+    font-size: 12px;
+    color: rgba(0,0,0,0.3);
+    align-items: center;
+}
+
 .title-bar  {
     background-color: #1A1A1A;
     height: 26pt;
@@ -117,9 +136,11 @@ p {
 
 .title-fill {
     display: flex;
-    width: 50%;
+    width: 70%;
 }
 
 .top {
     width: 100%;
+    margin: 0;
+    padding; 0;
 }
