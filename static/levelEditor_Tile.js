@@ -39,6 +39,14 @@ export class Tile {
         map.appendChild(this.element)
     }
 
+    menu_init(domName, tile) {
+        this.tile = tile
+        this.element = document.getElementById(domName)
+        this.element.style.backgroundImage = "url('/static/tileset.png')"
+        this.element.style.backgroundPosition = `${(this.tile%256)*(100 / (255))}% ${Math.floor(this.tile/256)*(100 / (255))}%`
+        this.element.style.backgroundSize = "25600%"
+    }
+
     set_id(id) {
         this.id = id
     }

@@ -1,16 +1,21 @@
 from flask import Flask, request, jsonify, render_template
 import json
 import click
+import os
 
 app = Flask(__name__)
 
+tile_filename = os.path.join(app.static_folder, 'levelEditor_List.json')
+
 @app.route('/level')
 def level():
-	return render_template("level.html")
+    with open(tile_filename) as file:
+        data = json.load(file)
+    return render_template("level.html", data=data)
 
 @app.route('/pyxled')
 def pyxled():
-	return render_template("pyxled.html")
+    return render_template("pyxled.html")
 
 @app.route('/', methods=['GET'])
 def index():

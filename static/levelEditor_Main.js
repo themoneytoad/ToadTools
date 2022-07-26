@@ -37,5 +37,28 @@ export class LevelEditorMain {
     get_tile(id) {
         return this.tiles[id]
     }
+    
+    update_modal_group(category) {
+        var group_select = document.getElementById("select-tile-group")
+        group_select.innerHTML = '';
+        for (let group in tileset[category]) {
+            var opt = document.createElement('option')
+            opt.value = group
+            opt.innerHTML = group
+            group_select.appendChild(opt)
+        }
+    }
+
+    update_modal_tiles(category, group) {
+        var tile_select = document.getElementById("select-tile-tile")
+        tile_select.innerHTML = '';
+        let arry = tileset[category][group]
+        for (var i=0; i< arry.length; i++) {
+            var opt = document.createElement('option')
+            opt.value = arry[i]
+            opt.innerHTML = arry[i]
+            tile_select.appendChild(opt)
+        }
+    }
 
 }

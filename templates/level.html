@@ -12,14 +12,14 @@
             <div class="title-bar">
                 <div class="title-fill" style="width: 30%;">
                     <div class="title" style="color:#79B5DD;">Level:</div>
-                    <div class="title" id="file" style="padding-left:5px;">file.lvl</div>
+                    <div class="title" id="file" style="padding-left:5px; width: 100%;">file.lvl</div>
                 </div>
                 <div class="title-fill">
-                    <button class="bar-item">FLR</button>
-                    <button class="bar-item">WAL</button>
-                    <button class="bar-item">SCE</button>
-                    <button class="bar-item">DEL</button>
-                    <button class="bar-item">OBJ</button>
+                    <button class="bar-item" onclick="bar_first()">1ST</button>
+                    <button class="bar-item" onclick="bar_second()">2ND</button>
+                    <button class="bar-item" onclick="bar_third()">3RD</button>
+                    <button class="bar-item" onclick="bar_collision()">COL</button>
+                    <button class="bar-item" onclick="bar_delete()">DEL</button>
                     <button class="bar-item">SAV</button>
                     <button class="bar-item">OPN</button>
                     <button class="bar-item">CLR</button>
@@ -27,8 +27,41 @@
             </div>
         </div>
         <!-- Content -->
-        <div class="container-tiles" id="map">
+        <div class="container">
+            <div class="tile-menu" id="tile-menu">
+               <button class="tile" id="floor" style="width: 60px; height: 60px;" onclick="menu_tile_floor()">FLOOR</button>
+               <button class="tile" id="wall" style="width: 60px; height: 60px;" onclick="menu_tile_wall()">WALLS</button>
+               <button class="tile" id="scene" style="width: 60px; height: 60px;" onclick="menu_tile_scene()">SCENE</button>
+               <button class="tile" id="actor" style="width: 60px; height: 60px;" onclick="menu_tile_actor()">ACTOR</button>
+            </div>
+            <div class="container-tiles" id="map">
+            </div>
         </div>
+        <!-- Popup -->
+        <div class="modal" id="modal">
+            <div class="title-fill" style="width:100%; height:30px;">
+                <div class="title" id="modal-title" style="width:80%;padding-left:10px;">Floor</div>
+                <button class="bar-item" onclick="modal_close()">CLOSE</button>
+            </div>
+            <div style="display:flex; flex-direction: row; padding-left:20px;">
+                <div class="tile" id="modal-tile" style="width: 100px; height: 100px;"></div>
+                <div>
+                    <div style="display:flex; flex-direction: column; padding-left: 40px; padding-top: 10px;">
+                        <div class="title">Group</div>
+                        <select name="select-tile-group" id="select-tile-group" onchange="modal_group_select_update(this.value)">
+                        </select>
+                    </div>
+                    <div style="display:flex; flex-direction: column; padding-left: 40px; padding-top: 10px;">
+                        <div class="title">Tile</div>
+                        <select name="select-tile-tile" id="select-tile-tile" onchange="modal_tile_select_update(this.value)">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var tileset = JSON.parse('{{ data | tojson | safe }}')
+        </script>
         <script type="module" src="{{url_for('static',filename='levelEditor_Init.js')}}"></script>
     </body>
 </html>
