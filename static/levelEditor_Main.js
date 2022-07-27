@@ -37,6 +37,13 @@ export class LevelEditorMain {
     get_tile(id) {
         return this.tiles[id]
     }
+
+    toggle_collision_visible(visible) {
+        for (let i in this.tiles) {
+            let tile = this.tiles[i]
+            tile.toggle_collision_visible(visible)
+        }
+    }
     
     update_modal_group(category) {
         var group_select = document.getElementById("select-tile-group")

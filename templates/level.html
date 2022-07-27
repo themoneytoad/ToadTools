@@ -15,10 +15,10 @@
                     <div class="title" id="file" style="padding-left:5px; width: 100%;">file.lvl</div>
                 </div>
                 <div class="title-fill">
-                    <button class="bar-item" onclick="bar_first()">1ST</button>
-                    <button class="bar-item" onclick="bar_second()">2ND</button>
-                    <button class="bar-item" onclick="bar_third()">3RD</button>
-                    <button class="bar-item" onclick="bar_collision()">COL</button>
+                    <button class="bar-item" id="zfirst" onclick="set_z_layer(1)">1ST</button>
+                    <button class="bar-item" id="zsecond"  onclick="set_z_layer(2)">2ND</button>
+                    <button class="bar-item" id="zthird"  onclick="set_z_layer(3)">3RD</button>
+                    <button class="bar-item" id="col"  onclick="bar_collision()">COL</button>
                     <button class="bar-item" onclick="bar_delete()">DEL</button>
                     <button class="bar-item">SAV</button>
                     <button class="bar-item">OPN</button>
@@ -29,10 +29,10 @@
         <!-- Content -->
         <div class="container">
             <div class="tile-menu" id="tile-menu">
-               <button class="tile" id="floor" style="width: 60px; height: 60px;" onclick="menu_tile_floor()">FLOOR</button>
-               <button class="tile" id="wall" style="width: 60px; height: 60px;" onclick="menu_tile_wall()">WALLS</button>
-               <button class="tile" id="scene" style="width: 60px; height: 60px;" onclick="menu_tile_scene()">SCENE</button>
-               <button class="tile" id="actor" style="width: 60px; height: 60px;" onclick="menu_tile_actor()">ACTOR</button>
+               <button class="tile" id="floor" style="width: 60px; height: 60px;" onclick="menu_tile_floor()"></button>
+               <button class="tile" id="wall" style="width: 60px; height: 60px;" onclick="menu_tile_wall()"></button>
+               <button class="tile" id="scene" style="width: 60px; height: 60px;" onclick="menu_tile_scene()"></button>
+               <button class="tile" id="actor" style="width: 60px; height: 60px;" onclick="menu_tile_actor()"></button>
             </div>
             <div class="container-tiles" id="map">
             </div>

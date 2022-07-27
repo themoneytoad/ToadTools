@@ -128,15 +128,39 @@ p {
 .tile {
     height: 50px;
     width: 50px;
+    position: relative;
     font-family: "Barlow", serif;
     font-size: 12px;
     color: rgba(255,255,255,1);
     align-items: center;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: pixelated;
-    background-color: white;
+    background-color: rgba(0,0,0,0);
 }
 
+.tile-image {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Barlow", serif;
+    font-size: 12px;
+    color: rgba(255,255,255,1);
+    align-items: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    background-color: rgba(0,0,0,0);
+}
+
+.tile-coll {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255,0,0,0.6);
+}
 .tile-menu {
     width: 62px;
     y
