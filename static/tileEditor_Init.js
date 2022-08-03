@@ -168,6 +168,8 @@ window.open_from_db = function(tile) {
             curr_tile_number_of_pixels = data[0][3];
             let elm = document.getElementById("tilename");
             elm.value = curr_tilename;
+            let elm2 = document.getElementById("tilename-save");
+            elm2.value = curr_tilename;
         });
 }
 

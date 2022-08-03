@@ -135,10 +135,19 @@ export class TileEditorMain {
                 c = '0x'+c.join('');
                 return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+','+opacity+')';
             }
-            let rgb = color.substring(4,color.length-1)
-            return `rgba(${rgb},${opacity})`
-       }
-        
+            let spt = color.split("(")
+            let clr = spt[1].split(")")
+            if (spt[0] === "rgb") {
+                return `rgba(${clr}${opacity})`
+            }
+            else if (spt[0] === "rgba") {
+                return `rgba(${clr})`
+            }
+            else {
+                return `rgba(${0},${0},${0},${0})`
+            }
+            return `rgba(${0},${0},${0},${0})`
+        }
         return `rgba(${0},${0},${0},${0})`
     }
 
@@ -171,6 +180,8 @@ export class TileEditorMain {
                 pxl.set_color(pixel_data[i][j])
             }
         }
+
+        console.log(this.pixels)
     }
 
     toggle_collision_visible(visible) {
