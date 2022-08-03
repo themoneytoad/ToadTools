@@ -72,6 +72,7 @@ button {
 .color-picks {
     overflow: auto;
     height: 90%;
+    width: 100%;
 }
 
 .color-picker {
