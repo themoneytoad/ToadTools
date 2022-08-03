@@ -1,5 +1,6 @@
 import psycopg2 as pg2
 import click
+import os
 
 class Database:
     def __init__(self, db, username, password, port, host):
@@ -32,6 +33,6 @@ env_username = os.getenv("env_username")
 env_password = os.getenv("env_password")
 env_port = os.getenv("env_port")
 env_host = os.getenv("env_host")
-db = Database(db=env_db, username=env_username, password=env_password, port=end_port, host=env_host)
+db = Database(db=env_db, username=env_username, password=env_password, port=env_port, host=env_host)
 
 db.connect()
