@@ -138,10 +138,10 @@ export class TileEditorMain {
             let spt = color.split("(")
             let clr = spt[1].split(")")
             if (spt[0] === "rgb") {
-                return `rgba(${clr}${opacity})`
+                return `rgba(${clr[0]},${opacity})`
             }
             else if (spt[0] === "rgba") {
-                return `rgba(${clr})`
+                return `rgba(${clr[0]})`
             }
             else {
                 return `rgba(${0},${0},${0},${0})`
@@ -152,7 +152,6 @@ export class TileEditorMain {
     }
 
     resize(size) {
-        console.log(size)
         for (let i in this.pixels) {
             for (let j in this.pixels[i]) {
                 this.pixels[i][j].element.remove();
@@ -172,7 +171,6 @@ export class TileEditorMain {
         this.resize(grid_size)
 
         let pixel_data = data[0][6]['pixels']
-        console.log(pixel_data)
         for (let i in this.pixels) {
             for (let j in this.pixels[i]) {
                 let pxl = this.pixels[i][j]
@@ -181,7 +179,6 @@ export class TileEditorMain {
             }
         }
 
-        console.log(this.pixels)
     }
 
     toggle_collision_visible(visible) {
