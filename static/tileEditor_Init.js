@@ -231,6 +231,8 @@ window.save_to_db = function() {
         }).then(function (data) {
             //console.log(data);
         });
+    let modal = document.getElementById("modal-save");
+    modal.style.display = "none";
 }
 
 window.set_tool_color = function(color) {
