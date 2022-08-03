@@ -15,6 +15,17 @@ spec:
     spec:
       containers:
         - name: toadtools
+          env:
+            - name: env_db
+              value: ""
+            - name: env_username
+              value: ""
+            - name: env_password
+              value: ""
+            - name: env_port
+              value: ""
+            - name: env_host
+              value: ""
           image: toadtools:latest
           imagePullPolicy: Never
           ports:

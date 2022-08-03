@@ -68,4 +68,46 @@ export class LevelEditorMain {
         }
     }
 
+    get_tiles_export() {
+        var level_1 = []
+        var level_2 = []
+        var level_3 = []
+        var level_col = []
+        for (let i in this.tiles) {
+            let tile = this.tiles[i]
+            let info = tile.get_tile_info()
+            level_1.push(info.tile_1)
+            level_2.push(info.tile_2)
+            level_3.push(info.tile_3)
+            level_col.push(info.collision)
+        }
+
+        var jsn = {
+            'level_1' : level_1,
+            'level_2' : level_2,
+            'level_3' : level_3,
+            'collision' : level_col
+        }
+        return jsn
+    }
+
+    set_tiles_import(data) {
+        for (let i in this.tiles) {
+            let tile = this.tiles[i]
+            tile.clear_tile()
+            tile.set_tile(data['level_1'][i], 1)
+            tile.set_tile(data['level_2'][i], 2)
+            tile.set_tile(data['level_3'][i], 3)
+            tile.set_collision(data['collision'][i])
+            tile.toggle_collision_visible(false)
+        }
+    }
+
+    clear_all_tiles() {
+        for (let i in this.tiles) {
+            let tile = this.tiles[i]
+            tile.clear_tile()
+        }
+    }
+
 }

@@ -10,19 +10,19 @@
         <!-- navbar -->
         <div class="top">
             <div class="title-bar">
-                <div class="title-fill" style="width: 30%;">
+                <div class="title-fill" style="width: 28%;">
                     <div class="title" style="color:#79B5DD;">Level:</div>
-                    <div class="title" id="file" style="padding-left:5px; width: 100%;">file.lvl</div>
+                    <input type="text" class="title" id="filename" style="padding-left:5px; width: 100%;" onchange="bar_filename_update(this.value)"></input>
                 </div>
                 <div class="title-fill">
                     <button class="bar-item" id="zfirst" onclick="set_z_layer(1)">1ST</button>
                     <button class="bar-item" id="zsecond"  onclick="set_z_layer(2)">2ND</button>
                     <button class="bar-item" id="zthird"  onclick="set_z_layer(3)">3RD</button>
                     <button class="bar-item" id="col"  onclick="bar_collision()">COL</button>
-                    <button class="bar-item" onclick="bar_delete()">DEL</button>
-                    <button class="bar-item">SAV</button>
-                    <button class="bar-item">OPN</button>
-                    <button class="bar-item">CLR</button>
+                    <button class="bar-item" id="del" onclick="bar_delete()">DEL</button>
+                    <button class="bar-item" onclick="bar_save()">SAV</button>
+                    <button class="bar-item" onclick="bar_open()">OPN</button>
+                    <button class="bar-item" onclick="bar_clear()">CLR</button>
                 </div>
             </div>
         </div>
@@ -59,8 +59,21 @@
                 </div>
             </div>
         </div>
+        <!-- Open Popup -->
+        <div class="modal" id="modal-open" style="display: none; height: 300px; top:50px;">
+            <div class="title-fill" style="width:100%; height:30px;">
+                <div class="title" style="width:80%;padding-left:10px;">Levels</div>
+            </div>
+            <div class="modal-open-levels" id="modal-open-levels">
+            </div>
+            <div class="title-fill" style="width:100%; height:30px;">
+                <button class="bar-item" id="modal-open-button" onclick="open_modal_open()">OPEN</button>
+                <button class="bar-item" onclick="open_modal_close()">CLOSE</button>
+            </div>
+        </div>
         <script>
             var tileset = JSON.parse('{{ data | tojson | safe }}')
+            var levels = JSON.parse('{{ levels | tojson | safe }}')
         </script>
         <script type="module" src="{{url_for('static',filename='levelEditor_Init.js')}}"></script>
     </body>

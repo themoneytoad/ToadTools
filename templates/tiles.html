@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static',filename='stylish.css')}}">
+        <title>Tile Editor</title>
+    </head>
+    <body>
+        <!-- navbar -->
+        <div class="top">
+            <div class="title-bar">
+                <div class="title-fill" style="width: 28%;">
+                    <div class="title" style="color:#79B5DD;">Tile:</div>
+                    <input type="text" class="title" id="tilename" style="padding-left:5px; width: 100%;" onchange="bar_tilename_update(this.value)"></input>
+                </div>
+                <div class="title-fill">
+                    <button class="bar-item" onclick="bar_color()">COLOR</button>
+                    <button class="bar-item" onclick="bar_save()">SAVE</button>
+                    <button class="bar-item" onclick="bar_open()">OPEN</button>
+                    <button class="bar-item" onclick="bar_clear()">CLEAR</button>
+                </div>
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="container">
+            <div class="tile-menu" id="tile-menu">
+               <button class="color-picker" id="paint_1" onclick="menu_set_color(1)"></button>
+               <button class="color-picker" id="paint_2" onclick="menu_set_color(2)"></button>
+               <button class="color-picker" id="paint_3" onclick="menu_set_color(3)"></button>
+               <button class="color-picker" id="delete" onclick="menu_delete()">DEL</button>
+               <button class="color-picker" id="paint" onclick="menu_paint()">PNT</button>
+               <button class="color-picker" id="bucket" onclick="menu_bucket()">BKT</button>
+               <button class="color-picker" id="zoom_in" onclick="menu_zoom(1)">IN</button>
+               <button class="color-picker" id="zoom_out" onclick="menu_zoom(-1)">OUT</button>
+            </div>
+            <div class="container-pixels" id="map">
+            </div>
+        </div>
+        <!-- Popup -->
+        <div class="modal" id="modal" style="height:70%">
+            <div class="title-fill" style="width:100%; height:30px;">
+                <div class="title" id="modal-title" style="width:80%; padding-left:10px;">Color</div>
+                <button class="bar-item" onclick="modal_close()">CLOSE</button>
+            </div>
+            <div id="color-picks" class="color-picks"></div>
+        </div>
+        <!-- Save Popup -->
+        <div class="modal" id="modal-save" style="height:70%">
+            <div class="title-fill" style="width:100%; height:30px;">
+                <div class="title" style="width:80%; padding-left:10px;">Save</div>
+                <button class="bar-item" onclick="modal_save_close()">CLOSE</button>
+            </div>
+            <div style="display:flex; flex-direction:column; width: 80%; margin-left: 10%;">
+                <div style="display: flex; flex-direction: row;">
+                    <div class="title">Id:</div>
+                    <div class="title" id="id-save"></div>
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div class="title">Tile:</div>
+                    <input type="text" class="title" id="tilename-save" style="padding-left:5px; width: 100%;" onchange="bar_tilename_update(this.value)"></input>
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div class="title">Group:</div>
+                    <input type="text" class="title" id="group-save" style="padding-left:5px; width: 100%;" onchange="modal_save_group(this.value)"></input>
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div class="title">Column:</div>
+                    <input type="text" class="title" id="location-save-x" style="padding-left:5px; width: 100%;" onchange="modal_save_location_col(this.value)"></input>
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div class="title">Row:</div>
+                    <input type="text" class="title" id="location-save-y" style="padding-left:5px; width: 100%;" onchange="modal_save_location_row(this.value)"></input>
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div class="title">Size:</div>
+                    <input type="text" class="title" id="size-save" style="padding-left:5px; width: 100%;" onchange="modal_save_number_of_pixels(this.value)"></input>
+                </div>
+                <div class="title-fill" style="width:100%; height:30px;">
+                    <button class="bar-item" onclick="modal_save_save()">SAVE</button>
+                </div>
+            </div>
+        </div>
+        <!-- Open Popup -->
+        <div class="modal" id="modal-open" style="display: none; height: 300px; top:50px;">
+            <div class="title-fill" style="width:100%; height:30px;">
+                <div class="title" style="width:80%;padding-left:10px;">Levels</div>
+            </div>
+            <div class="modal-open-levels" id="modal-open-tiles">
+            </div>
+            <div class="title-fill" style="width:100%; height:30px;">
+                <button class="bar-item" id="modal-open-button" onclick="open_modal_open()">OPEN</button>
+                <button class="bar-item" onclick="open_modal_close()">CLOSE</button>
+            </div>
+        </div>
+        <script type="module" src="{{url_for('static',filename='tileEditor_Init.js')}}"></script>
+    </body>
+</html>
