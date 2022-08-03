@@ -38,18 +38,18 @@
             </div>
         </div>
         <!-- Color Pick Popup -->
-        <div class="modal" id="modal" style="height:70%; top: 40px; left: 40px; display: none; width: 86%;">
+        <div class="modal" id="modal">
             <div class="title-fill" style="width:100%; height:30px;">
                 <div class="title" id="modal-title" style="width:80%; padding-left:10px;">Color</div>
-                <button class="bar-item" onclick="modal_close()">CLOSE</button>
+                <button class="bar-item" onclick="color_modal_close()">CLOSE</button>
             </div>
             <div id="color-picks" class="color-picks"></div>
         </div>
         <!-- Save Popup -->
-        <div class="modal" id="modal-save" style="height:70%">
+        <div class="modal" id="modal-save">
             <div class="title-fill" style="width:100%; height:30px;">
                 <div class="title" style="width:80%; padding-left:10px;">Save</div>
-                <button class="bar-item" onclick="modal_save_close()">CLOSE</button>
+                <button class="bar-item" onclick="save_modal_close()">CLOSE</button>
             </div>
             <div style="display:flex; flex-direction:column; width: 80%; margin-left: 10%;">
                 <div style="display: flex; flex-direction: row;">
@@ -62,35 +62,46 @@
                 </div>
                 <div style="display: flex; flex-direction: row;">
                     <div class="title">Group:</div>
-                    <input type="text" class="title" id="group-save" style="padding-left:5px; width: 100%;" onchange="modal_save_group(this.value)"></input>
+                    <input type="text" class="title" id="group-save" style="padding-left:5px; width: 100%;" onchange="save_modal_group(this.value)"></input>
                 </div>
                 <div style="display: flex; flex-direction: row;">
                     <div class="title">Column:</div>
-                    <input type="text" class="title" id="location-save-x" style="padding-left:5px; width: 100%;" onchange="modal_save_location_col(this.value)"></input>
+                    <input type="text" class="title" id="location-save-x" style="padding-left:5px; width: 100%;" onchange="save_modal_location_col(this.value)"></input>
                 </div>
                 <div style="display: flex; flex-direction: row;">
                     <div class="title">Row:</div>
-                    <input type="text" class="title" id="location-save-y" style="padding-left:5px; width: 100%;" onchange="modal_save_location_row(this.value)"></input>
+                    <input type="text" class="title" id="location-save-y" style="padding-left:5px; width: 100%;" onchange="save_modal_location_row(this.value)"></input>
                 </div>
                 <div style="display: flex; flex-direction: row;">
                     <div class="title">Size:</div>
-                    <input type="text" class="title" id="size-save" style="padding-left:5px; width: 100%;" onchange="modal_save_number_of_pixels(this.value)"></input>
+                    <input type="text" class="title" id="size-save" style="padding-left:5px; width: 100%;" onchange="save_modal_number_of_pixels(this.value)"></input>
                 </div>
                 <div class="title-fill" style="width:100%; height:30px;">
-                    <button class="bar-item" onclick="modal_save_save()">SAVE</button>
+                    <button class="bar-item" onclick="save_modal_save()">SAVE</button>
                 </div>
             </div>
         </div>
         <!-- Open Popup -->
-        <div class="modal" id="modal-open" style="display: none; height: 300px; top:50px;">
+        <div class="modal" id="modal-open">
             <div class="title-fill" style="width:100%; height:30px;">
                 <div class="title" style="width:80%;padding-left:10px;">Levels</div>
+                <button class="bar-item" onclick="open_modal_close()">CLOSE</button>
             </div>
             <div class="modal-open-levels" id="modal-open-tiles">
             </div>
             <div class="title-fill" style="width:100%; height:30px;">
                 <button class="bar-item" id="modal-open-button" onclick="open_modal_open()">OPEN</button>
-                <button class="bar-item" onclick="open_modal_close()">CLOSE</button>
+            </div>
+        </div>
+        <!-- Clear Popup -->
+        <div class="modal" id="modal-clear" style="display: block;">
+            <div class="title-fill" style="width:100%; height:30px;">
+                <div class="title" style="width:80%;padding-left:10px;">Clear</div>
+                <button class="bar-item" onclick="clear_modal_close()">CLOSE</button>
+            </div>
+            <div class="title-fill" style="flex-direction: column; width: 100%; justify-content: center;">
+                <div class="title" style="align-items:center; width:100%; justify-content:center; text-align:center;">ARE YOU SURE?</div>
+                <button class="bar-item" style="background-color: rgba(255,0,0,0.3); height: 50px;" onclick="clear_modal_clear()">CLEAR</button>
             </div>
         </div>
         <script type="module" src="{{url_for('static',filename='tileEditor_Init.js')}}"></script>

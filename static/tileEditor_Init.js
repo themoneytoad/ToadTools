@@ -19,11 +19,28 @@ window.addEventListener('load', function () {
 })
 
 window.bar_clear = function() {
+    let modal = document.getElementById("modal-clear");
+    modal.style.display = "block";
+    color_modal_close();
+    save_modal_close();
+    open_modal_close();
+}
+
+window.clear_modal_clear = function() {
     tileMain.clear_all_pixels()
+    clear_modal_close();
+}
+
+window.clear_modal_close = function() {
+    let modal = document.getElementById("modal-clear");
+    modal.style.display = "none";
 }
 
 window.bar_color = function() {
-    modal_open();
+    color_modal_open();
+    save_modal_close();
+    open_modal_close();
+    clear_modal_close();
 }
 
 window.bar_open = function() {
@@ -34,10 +51,16 @@ window.bar_open = function() {
             console.log('GET response text: ');
             open_modal(data);
         });
+     color_modal_close();
+     save_modal_close();
+     clear_modal_close();
 }
 
 window.bar_save = function() {
-    modal_save_open();
+    save_modal_open();
+    color_modal_close();
+    open_modal_close();
+    clear_modal_close();
 }
 
 window.bar_tilename_update = function(value) {
@@ -96,17 +119,17 @@ window.menu_zoom = function(val) {
     tileMain.zoom(val)
 }
 
-window.modal_open = function() {
+window.color_modal_open = function() {
     let modal = document.getElementById("modal");
     modal.style.display = "block";
 }
 
-window.modal_close = function() {
+window.color_modal_close = function() {
     let modal = document.getElementById("modal");
     modal.style.display = "none";
 }
 
-window.modal_save_open = function() {
+window.save_modal_open = function() {
     let id = document.getElementById("id-save");
     id.innerHTML = curr_tile_id;
     let group = document.getElementById("group-save");
@@ -121,24 +144,24 @@ window.modal_save_open = function() {
     modal.style.display = "block";
 }
 
-window.modal_save_close = function() {
+window.save_modal_close = function() {
     let modal = document.getElementById("modal-save");
     modal.style.display = "none";
 }
 
-window.modal_save_group = function(value) {
+window.save_modal_group = function(value) {
     curr_tile_group = value
 }
 
-window.modal_save_location_col = function(value) {
+window.save_modal_location_col = function(value) {
     curr_tile_location_col = value
 }
 
-window.modal_save_location_row = function(value) {
+window.save_modal_location_row = function(value) {
     curr_tile_location_row = value
 }
 
-window.modal_save_number_of_pixels = function(value) {
+window.save_modal_number_of_pixels = function(value) {
     if (value % 8 == 0) {
         curr_tile_number_of_pixels = value
         tileMain.clear_all_pixels()
@@ -150,7 +173,7 @@ window.modal_save_number_of_pixels = function(value) {
     }
 }
 
-window.modal_save_save = function(value) {
+window.save_modal_save = function(value) {
     save_to_db()
 }
 
