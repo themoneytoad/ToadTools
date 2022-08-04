@@ -48,14 +48,16 @@ export class TileEditorMain {
             this.pixels.push(row)
         }
 
+        let colorPicks = document.getElementById("color-picks");
+        colorPicks.innerHTML = ''
+
         for (var i=0; i<this.colors.length; i++) {
-            let container = document.getElementById("color-picks");
             let elm = document.createElement("button");
             elm.id = this.colors[i]
             elm.className = "color-options";
             elm.onmouseup = (e) => {window.color_picked(elm.id)}
             elm.style.backgroundColor = this.colors[i]
-            container.appendChild(elm);
+            colorPicks.appendChild(elm);
         }
 
         // setup colors
@@ -125,6 +127,12 @@ export class TileEditorMain {
     }
 
     convert_hex_to_rgba(color, opacity) {
+        var test = {
+           "r":0,
+           "g":0,
+           "b":0,
+           "a":0
+        }
         if (color) {
             var c;
             if(/^#([A-Fa-f0-9]{3}){1,3}$/.test(color)){
@@ -133,22 +141,24 @@ export class TileEditorMain {
                     c = [c[0], c[0], c[1], c[1], c[2], c[2]];
                 }
                 c = '0x'+c.join('');
-                return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+','+opacity+')';
-            }
-            let spt = color.split("(")
-            let clr = spt[1].split(")")
-            if (spt[0] === "rgb") {
-                return `rgba(${clr[0]},${opacity})`
-            }
-            else if (spt[0] === "rgba") {
-                return `rgba(${clr[0]})`
+                test = {"r":(c>>16)&255,"g":(c>>8)&255, "b":c&255,"a":opacity};
             }
             else {
-                return `rgba(${0},${0},${0},${0})`
+                let spt = color.split("(")
+                let clr = spt[1].split(")")
+                let breakdown = clr[0].split(",")
+                test['r'] = parseInt(breakdown[0])
+                test['g'] = parseInt(breakdown[1])
+                test['b'] = parseInt(breakdown[2])
+                if (breakdown.length == 3) {
+                    test['a'] = opacity
+                }
+                else {
+                    test['a'] = parseInt(breakdown[3])
+                }
             }
-            return `rgba(${0},${0},${0},${0})`
         }
-        return `rgba(${0},${0},${0},${0})`
+        return test
     }
 
     resize(size) {
@@ -175,7 +185,7 @@ export class TileEditorMain {
             for (let j in this.pixels[i]) {
                 let pxl = this.pixels[i][j]
                 pxl.clear();
-                pxl.set_color(pixel_data[i][j])
+                pxl.set_color_import(pixel_data[i][j])
             }
         }
 

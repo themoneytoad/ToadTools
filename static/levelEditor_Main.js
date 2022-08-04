@@ -6,7 +6,7 @@ export class LevelEditorMain {
     map_size_y = 32
     count = 0
     tile_size = 8 // This is pixels of tiles in loaded tilemap
-    tile_map_name = "tilemap.png"
+    tile_map_name = "tileset.png"
 
     init() {
         for (var i=0; i< this.map_size_x; i++) {
@@ -48,23 +48,34 @@ export class LevelEditorMain {
     update_modal_group(category) {
         var group_select = document.getElementById("select-tile-group")
         group_select.innerHTML = '';
-        for (let group in tileset[category]) {
+        var list_of_groups = new Set()
+        for (let i in tileset) {
+            if (tileset[i][1] != "Empty") {
+                list_of_groups.add(tileset[i][1])
+            }
+        }
+
+        for (let group of list_of_groups) {
             var opt = document.createElement('option')
             opt.value = group
             opt.innerHTML = group
             group_select.appendChild(opt)
         }
+        
     }
 
     update_modal_tiles(category, group) {
         var tile_select = document.getElementById("select-tile-tile")
         tile_select.innerHTML = '';
-        let arry = tileset[category][group]
-        for (var i=0; i< arry.length; i++) {
-            var opt = document.createElement('option')
-            opt.value = arry[i]
-            opt.innerHTML = arry[i]
-            tile_select.appendChild(opt)
+        var list_of_tiles = new Set()
+        for (let i in tileset) {
+            if (tileset[i][1] === group) {
+                var opt = document.createElement('option')
+                opt.value = `${tileset[i][2]},${tileset[i][3]}`
+                opt.innerHTML = tileset[i][0]
+                console.log(opt.value)
+                tile_select.appendChild(opt)
+            }
         }
     }
 

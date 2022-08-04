@@ -6,6 +6,7 @@ import click
 import os
 
 from db import db
+from imagemaker import imagemaker
 
 app = Flask(__name__)
 
@@ -63,14 +64,35 @@ def save_tile(tile):
     db.close()
     return "Success"
 
+@app.route('/map')
+def map():
+
+    db.connect()
+    tiles = db.execute_fetch(f"SELECT DISTINCT ON (name) * FROM tiles ORDER BY name, updated_at DESC")
+    db.close()
+
+    #imagemaker.generate_blank_image()
+    
+    for tile in tiles:
+        tl = {
+            'name':tile[1],
+            'col':tile[2],
+            'row':tile[7],
+            'color':tile[6]['pixels'],
+            'group':tile[4]
+        }
+        imagemaker.set_tile_in_image(tl)
+
+    imagemaker.export_image()
+    
+    return "Success"
+
 @app.route('/level')
 def level():
     db.connect()
-    levels = db.execute_fetch("SELECT * FROM levels WHERE name='test_level_1';")
+    tiles = db.execute_fetch(f"SELECT DISTINCT ON (name) name, tile_group, location_row, location_column FROM tiles ORDER BY name, updated_at DESC")
     db.close()
-    with open(tile_filename) as file:
-        data = json.load(file)
-    return render_template("level.html", data=data, levels=levels)
+    return render_template("level.html", tiles=tiles)
 
 @app.route('/tiles')
 def tiles():

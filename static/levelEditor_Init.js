@@ -1,8 +1,6 @@
 import { LevelEditorMain } from "./levelEditor_Main.js"
 import { Tile } from "./levelEditor_Tile.js"
 
-console.log(levels)
-
 window.tileOnClick = function (id) {
     let currTile = levelMain.get_tile(id); // document.getElementById(`${id}`);
     if (selecting_collision) {
@@ -176,7 +174,6 @@ window.menu_tile_floor = function () {
     modal_tile.set_tile(last_floor_id, 1)
     modal_select_group.value = last_floor_group 
     modal_select_tile.value = last_floor_id
-    console.log(last_floor_id)
     modal.style.display = 'block'
 }
 
@@ -187,7 +184,6 @@ window.menu_tile_wall = function () {
     modal_tile.set_tile(last_wall_id, 1)
     modal_select_group.value = last_wall_group 
     modal_select_tile.value = last_wall_id
-    console.log(last_wall_id)
     modal.style.display = 'block'
 }
 

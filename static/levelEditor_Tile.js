@@ -13,8 +13,8 @@ export class Tile {
     loc_col = 0;
     loc_row = 0;
     loc = '0 / 0 / 0 / 0'
-    tile_size = 256 // how many tiles can fit. 2048 / 8 px -> 256
-    tile_background_zoom = '25600%' // zoom in on the tile for editor
+    tile_size = 128 // how many tiles can fit. 2048 / 8 px -> 256
+    tile_background_zoom = '12800%' // zoom in on the tile for editor
 
 	constructor(conf) {
 		this.id = conf.id || null
@@ -78,6 +78,11 @@ export class Tile {
     }
 
     set_tile(tilemap_index, z_index) {
+        if (typeof(tilemap_index) === "string") {
+            let txt = ""+tilemap_index
+            let row_col_group = txt.split(',')
+            tilemap_index = row_col_group[0] * 128 + row_col_group[1]
+        }
         if (z_index == 1) {
             this.tile_1 = tilemap_index
             this.img1.style.backgroundPosition = `${(this.tile_1%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_1/this.tile_size)*(100 / (this.tile_size-1))}%`

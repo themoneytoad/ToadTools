@@ -37,6 +37,28 @@ export class Pixel {
         this.element.opacity = 1
     }
 
+    set_color_import(color) {
+        if (typeof(color) === "string") {
+            color = this.convert_old_export_to_rgb(color)
+        }
+        let clr = 'rgba(' + color['r'] + ',' + color['g'] + ',' + color['b'] + ',' + color['a'] + ')'
+        this.color = clr
+        this.element.style.backgroundColor = clr
+        this.opacity = color['a']
+    }
+
+    convert_old_export_to_rgb(color_string) {
+        let digits = color_string.substring(5,color_string.length-1)
+        let breakdown = digits.split(",")
+        let out = {
+            'r': breakdown[0],
+            'g': breakdown[1],
+            'b': breakdown[2],
+            'a': breakdown[3],
+        }
+        return out
+    }
+
     clear() {
         this.color = null
         this.opacity = 0
