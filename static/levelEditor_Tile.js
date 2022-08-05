@@ -81,7 +81,7 @@ export class Tile {
         if (typeof(tilemap_index) === "string") {
             let txt = ""+tilemap_index
             let row_col_group = txt.split(',')
-            tilemap_index = row_col_group[0] * 128 + row_col_group[1]
+            tilemap_index = parseInt(row_col_group[0]) * 128 + parseInt(row_col_group[1])
         }
         if (z_index == 1) {
             this.tile_1 = tilemap_index
