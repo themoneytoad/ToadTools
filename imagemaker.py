@@ -116,6 +116,8 @@ class Imagemaker:
         with open(f'/media/{filename}', 'wb') as out:
         #with open(f'{os.getcwd()}/{filename}', 'wb') as out:
             self.dump_png(out, img)
+        with open(f'/static/{filename}', 'wb') as out:
+            self.dump_png(out, img)
 
     def convert_pattern(self, js: dict) -> Image:
         out = []
