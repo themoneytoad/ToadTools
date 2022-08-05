@@ -24,17 +24,6 @@ class Imagemaker:
     def generate_blank_tile(self):
         blank = {'r':0,'g':0,'b':0,'a':0}
         self.img = np.full((self.imageSize, self.imageSize), blank)
-        '''
-        tmp = []
-        for i in range(self.tileSize):
-            row = []
-            for j in range(self.tileSize):
-                row.append(blank)
-            tmpRow = np.array(row)
-            tmp.append(tmpRow)
-        self.emptyTile = np.array(tmp)
-        print(self.emptyTile)'''
-        print(len(self.img))
 
     def generate_blank_image(self):
         for i in range(self.numRowCol):
@@ -46,22 +35,14 @@ class Imagemaker:
     def set_tile_in_image(self, tile):
         start_row = tile['row'] * 16
         start_col = tile['col'] * 16
-        print('row - ' + str(start_row) + " , col - " + str(start_col))
         for row in range(len(tile['color'])):
             for col in range(len(tile['color'][row])):
-                print('row - ' + str(start_row+row) + " , col - " + str(start_col+col))
-                print(tile['color'][row][col])
                 self.img[start_row+row][start_col+col] = tile['color'][row][col]
 
     def export_image(self):
-        print('Should be printing')
         out = { "img" : self.img, "name" : "tileset.png"}
         img, name = self.convert_pattern(out)
         self.save_png(img, name)
-        # res = requests.post('http://10.152.183.120:31500',json=out)
-
-    def test(self):
-        print(str(len(self.img)) + ", " + str(len(self.img[0])))
 
     def get_checksum(self, chunktype: bytes, data: bytes) -> int:
         checksum = zlib.crc32(chunktype)

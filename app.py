@@ -87,6 +87,10 @@ def map():
     
     return "Success"
 
+@app.route('/media/<filename>')
+def grab_tileset(filename):
+    return send_from_directory('media', filename)
+
 @app.route('/level')
 def level():
     db.connect()
