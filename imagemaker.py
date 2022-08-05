@@ -113,7 +113,7 @@ class Imagemaker:
         self.chunk(out, b'IEND', data=b'')
 
     def save_png(self, img: Image, filename: str) -> None:
-        with open(f'/static/{filename}', 'wb') as out:
+        with open(f'/media/{filename}', 'wb') as out:
         #with open(f'{os.getcwd()}/{filename}', 'wb') as out:
             self.dump_png(out, img)
 
