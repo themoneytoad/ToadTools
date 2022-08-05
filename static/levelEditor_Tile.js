@@ -38,22 +38,19 @@ export class Tile {
         this.img1 = document.createElement("div")
         this.img1.textContent = this.id
         this.img1.className = "tile-image"
-        this.img1.style.backgroundImage = "url_for('grab_tileset', 'tileset.png')"
-        //this.img1.style.backgroundImage = "url('/static/tileset.png')"
+        this.img1.style.backgroundImage = "url('/static/tileset.png')"
         this.img1.style.backgroundPosition = `${(this.tile_1%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_1/this.tile_size)*(100 / (this.tile_size-1))}%`
         this.img1.style.backgroundSize = this.tile_background_zoom
         this.element.appendChild(this.img1);
         this.img2 = document.createElement("div")
         this.img2.className = "tile-image"
-        this.img2.style.backgroundImage = "url_for('grab_tileset', 'tileset.png')"
-        //this.img2.style.backgroundImage = "url('/static/tileset.png')"
+        this.img2.style.backgroundImage = "url('/static/tileset.png')"
         this.img2.style.backgroundPosition = `${(this.tile_2%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_2/this.tile_size)*(100 / (this.tile_size-1))}%`
         this.img2.style.backgroundSize = this.tile_background_zoom
         this.element.appendChild(this.img2);
         this.img3 = document.createElement("div")
         this.img3.className = "tile-image"
-        this.img3.style.backgroundImage = "url_for('grab_tileset', 'tileset.png')"
-        //this.img3.style.backgroundImage = "url('/static/tileset.png')"
+        this.img3.style.backgroundImage = "url('/static/tileset.png')"
         this.img3.style.backgroundPosition = `${(this.tile_3%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_3/this.tile_size)*(100 / (this.tile_size-1))}%`
         this.img3.style.backgroundSize = this.tile_background_zoom
         this.element.appendChild(this.img3);
@@ -69,8 +66,7 @@ export class Tile {
         this.element = document.getElementById(domName);
         this.img1 = document.createElement("div")
         this.img1.className = "tile-image"
-        //this.img1.style.backgroundImage = "url('/static/tileset.png')"
-        this.img1.style.backgroundImage = "url_for('grab_tileset', 'tileset.png')"
+        this.img1.style.backgroundImage = "url('/static/tileset.png')"
         this.img1.style.backgroundPosition = `${(this.tile_1%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_1/this.tile_size)*(100 / (this.tile_size-1))}%`
         this.img1.style.backgroundSize = this.tile_background_zoom
         this.img1.innerHTML = type

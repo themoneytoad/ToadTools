@@ -10,6 +10,8 @@ from imagemaker import imagemaker
 
 app = Flask(__name__)
 
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 tile_filename = os.path.join(app.static_folder, 'levelEditor_List.json')
 
 @app.route('/listlevels/',methods=['GET'])
