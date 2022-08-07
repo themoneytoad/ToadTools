@@ -66,8 +66,8 @@ def save_tile(tile):
     db.close()
     return "Success"
 
-@app.route('/map')
-def map():
+@app.route('/export')
+def export():
 
     db.connect()
     tiles = db.execute_fetch(f"SELECT DISTINCT ON (name) * FROM tiles ORDER BY name, updated_at DESC")
@@ -89,6 +89,14 @@ def map():
     
     return "Success"
 
+@app.route('/map')
+def map():
+    db.connect()
+    tiles = db.execute_fetch(f"SELECT DISTINCT ON (name) * FROM tiles ORDER BY name, updated_at DESC")
+    db.close()
+    return render_template("map.html", tiles=tiles)
+
+
 @app.route('/media/<filename>')
 def grab_tileset(filename):
     return send_from_directory('media', filename)
@@ -103,10 +111,6 @@ def level():
 @app.route('/tiles')
 def tiles():
     return render_template("tiles.html")
-
-@app.route('/pyxled')
-def pyxled():
-    return render_template("pyxled.html")
 
 @app.route('/', methods=['GET'])
 def index():
