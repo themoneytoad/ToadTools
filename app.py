@@ -91,6 +91,7 @@ def export():
 
 @app.route('/map')
 def map():
+    os.popen('cp /media/tileset.png /static/tileset.png')
     db.connect()
     tiles = db.execute_fetch(f"SELECT DISTINCT ON (name) * FROM tiles ORDER BY name, updated_at DESC")
     db.close()

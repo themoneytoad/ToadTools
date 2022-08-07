@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static',filename='stylish.css')}}">
+        <title>Map Editor</title>
+    </head>
+    <body>
+        <!-- navbar -->
+        <div class="top">
+            <div class="title-bar">
+                <div class="title-fill" style="width: 28%;">
+                    <div class="title" style="color:#79B5DD;">Tile:</div>
+                    <div type="text" class="title" id="tile" style="padding-left:5px; width: 100%;"></input>
+                </div>
+                <div class="title-fill">
+                    <button class="bar-item" onclick="bar_open()">OPEN</button>
+                    <button class="bar-item" onclick="bar_export()">EXPORT</button>
+                </div>
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="container">
+            <div class="container-tiles" id="map">
+            </div>
+        </div>
+        <!-- Popup -->
+        <div class="modal" id="modal">
+            <div class="title-fill" style="width:100%; height:30px;">
+                <div class="title" id="modal-title" style="width:80%;padding-left:10px;">Tile</div>
+                <button class="bar-item" onclick="modal_close()">CLOSE</button>
+            </div>
+            <div style="display:flex; flex-direction: row; padding-left:20px;">
+                <div class="tile" id="modal-tile" style="width: 100px; height: 100px;"></div>
+                <div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var tileset = JSON.parse('{{ tiles | tojson | safe }}')
+        </script>
+        <script type="module" src="{{url_for('static',filename='mapEditor_Init.js')}}"></script>
+    </body>
+</html>
