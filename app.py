@@ -60,13 +60,22 @@ def save_tile(tile):
     data = json.loads(tile)
     #print(type((data['data'])))
     if (data['id'] != 'generate_new_uuid()'):
-        db.execute_query(f"UPDATE tiles SET name='{data['name']}', location_column=data['loc_col'], location_row=data['loc_row'], number_of_pixels=data['size'], tile_group=data['group'], pixels={Json(data['pixels'])} WHERE id='{data['id']}';")
+        db.execute_query(f"UPDATE tiles SET name='{data['name']}', location_column='{data['loc_col']}', location_row='{data['loc_row']}', number_of_pixels='{data['size']}', tile_group='{data['group']}', pixels={Json(data['pixels'])} WHERE id='{data['id']}';")
     else:
         db.execute_query(f"INSERT INTO tiles(id, name, location_column, location_row, number_of_pixels, tile_group, pixels) VALUES (gen_random_uuid(), '{data['name']}', '{data['loc_col']}', '{data['loc_row']}', '{data['size']}', '{data['group']}', {Json(data['pixels'])});")
     db.close()
     return "Success"
 
-@app.route('/export')
+@app.route('/savetilemap/<tile>',methods=['POST'])
+def save_tile_map(tile):
+    db.connect()
+    data = json.loads(tile)
+    #print(type((data['data'])))
+    db.execute_query(f"UPDATE tiles SET name='{data['name']}', location_column='{data['loc_col']}', location_row='{data['loc_row']}', tile_group='{data['group']}' WHERE id='{data['id']}';")
+    db.close()
+    return "Success"
+
+@app.route('/export', methods=['GET'])
 def export():
 
     db.connect()

@@ -30,11 +30,14 @@ export class Pixel {
         this.id = id
     }
 
-    set_color(color) {
-        this.color = color
-        this.element.style.backgroundColor = color
+    set_color(color, opacity) {
+        this.color = convert_hex_to_rgba(color,opacity)
+        this.element.style.backgroundColor = `rgba(${this.color['r']}, ${this.color['g']}, ${this.color['b']}, ${this.color['a']})` 
         this.opacity = 1
-        this.element.opacity = 1
+    //    this.element.opacity = 1
+        if (opacity) {
+            this.opacity = opacity
+        }
     }
 
     set_color_import(color) {
@@ -45,18 +48,6 @@ export class Pixel {
         this.color = clr
         this.element.style.backgroundColor = clr
         this.opacity = color['a']
-    }
-
-    convert_old_export_to_rgb(color_string) {
-        let digits = color_string.substring(5,color_string.length-1)
-        let breakdown = digits.split(",")
-        let out = {
-            'r': breakdown[0],
-            'g': breakdown[1],
-            'b': breakdown[2],
-            'a': breakdown[3],
-        }
-        return out
     }
 
     clear() {

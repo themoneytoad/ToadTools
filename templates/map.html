@@ -10,12 +10,13 @@
         <!-- navbar -->
         <div class="top">
             <div class="title-bar">
-                <div class="title-fill" style="width: 28%;">
+                <div class="title-fill" style="width: 60%;">
                     <div class="title" style="color:#79B5DD;">Tile:</div>
-                    <div type="text" class="title" id="tile" style="padding-left:5px; width: 100%;"></input>
+                    <div type="text" class="title" id="tile" style="padding-left:5px; width: 100%;"></div>
                 </div>
-                <div class="title-fill">
-                    <button class="bar-item" onclick="bar_open()">OPEN</button>
+                <div class="title-fill" style="width:40%">
+                    <button class="bar-item" id='view' disabled="true" onclick="bar_view()">VIEW</button>
+                    <button class="bar-item" id='open' disabled="true" onclick="bar_open()">OPEN</button>
                     <button class="bar-item" onclick="bar_export()">EXPORT</button>
                 </div>
             </div>
@@ -32,8 +33,32 @@
                 <button class="bar-item" onclick="modal_close()">CLOSE</button>
             </div>
             <div style="display:flex; flex-direction: row; padding-left:20px;">
-                <div class="tile" id="modal-tile" style="width: 100px; height: 100px;"></div>
-                <div>
+                <div class="tile" id="view-tile" style="width: 100px; height: 100px;"></div>
+                <div style="display:flex; flex-direction:column; width: 80%; margin-left: 10%;">
+                    <div style="display: flex; flex-direction: row;">
+                        <div class="title">Id:</div>
+                        <div class="title" id="view-id"></div>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <div class="title">Name:</div>
+                        <input type="text" class="title" id="view-name" style="padding-left:5px; width: 100%;" onchange="view_modal_name(this.value)"></input>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <div class="title">Group:</div>
+                        <input type="text" class="title" id="view-group" style="padding-left:5px; width: 100%;" onchange="view_modal_group(this.value)"></input>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <div class="title">Column:</div>
+                        <input type="text" class="title" id="view-location-x" style="padding-left:5px; width: 100%;" onchange="view_modal_location_col(this.value)"></input>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <div class="title">Row:</div>
+                        <input type="text" class="title" id="view-location-y" style="padding-left:5px; width: 100%;" onchange="view_modal_location_row(this.value)"></input>
+                    </div>
+                    <div class="title-fill" style="width:100%; height:30px;">
+                        <button class="bar-item" onclick="view_modal_open()">OPEN</button>
+                        <button class="bar-item" onclick="view_modal_save()">SAVE</button>
+                    </div>
                 </div>
             </div>
         </div>

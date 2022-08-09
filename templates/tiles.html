@@ -41,6 +41,10 @@
         <div class="modal" id="modal">
             <div class="title-fill" style="width:100%; height:30px;">
                 <div class="title" id="modal-title" style="width:80%; padding-left:10px;">Color</div>
+                <div style="display: flex; flex-direction: row;">
+                    <div class="title">OPACITY:</div>
+                    <input type="text" class="title" id="color-opacity" style="padding-left:5px; width: 100%;" onchange="color_modal_opacity(this.value)"></input>
+                </div>
                 <button class="bar-item" onclick="color_modal_close()">CLOSE</button>
             </div>
             <div id="color-picks" class="color-picks"></div>

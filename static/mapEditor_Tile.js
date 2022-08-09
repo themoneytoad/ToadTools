@@ -10,11 +10,11 @@ export class Tile {
     tile_size = 128 // how many tiles can fit. 2048 / 8 px -> 256
     tile_background_zoom = '12800%' // zoom in on the tile for editor
     // database information
-    db_id = null
-    db_name = null
+    db_id = 'generate_new_uuid()'
+    db_name = 'NEW_TILE'
     db_col = null
     db_row = null
-    db_group = null
+    db_group = 'Empty'
 
 	constructor(conf) {
 		this.id = conf.id || null
@@ -41,6 +41,16 @@ export class Tile {
         this.img.style.backgroundSize = this.tile_background_zoom
         this.element.appendChild(this.img);
         map.appendChild(this.element)
+        this.db_col = this.loc_col-1 // These must be swapped?
+        this.db_row = this.loc_row-1
+    }
+
+    move_tile(newId, newLoc) {
+        this.loc = newLoc
+        this.element.style.gridArea = this.loc
+        this.id = newId
+        this.img.textContent = this.id
+        this.element.onmouseup = (e) => {window.tileOnClick(this.id)}
     }
 
     clear_tile() {
@@ -68,6 +78,15 @@ export class Tile {
         this.set_tile(`${this.db_row},${this.db_col}`)
     }
 
+    selected(bSelected) {
+        if (bSelected) {
+            this.img.style.filter = "brightness(1.6)"
+        }
+        else {
+            this.img.style.filter = "none"
+        }
+    }
+
     set_tile(tilemap_index) {
         if (typeof(tilemap_index) === "string") {
             let txt = ""+tilemap_index
@@ -87,6 +106,23 @@ export class Tile {
         else {
             this.colbox.style.display = 'none'
         }
+    }
+
+    // From the Init
+    view_set_name(value) {
+        this.db_name = value
+    }
+
+    view_set_group(value) {
+        this.db_group = value
+    }
+
+    view_set_col(value) {
+        this.db_col = value
+    }
+
+    view_set_row(value) {
+        this.db_row = value
     }
 
 }
