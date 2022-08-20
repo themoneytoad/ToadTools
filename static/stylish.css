@@ -209,8 +209,8 @@ p {
 }
 
 .tile {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     position: relative;
     font-family: "Barlow", serif;
     font-size: 12px;
@@ -222,8 +222,8 @@ p {
 }
 
 .tile-image {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     position: absolute;
     top: 0;
     left: 0;

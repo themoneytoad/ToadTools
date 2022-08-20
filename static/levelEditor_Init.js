@@ -7,7 +7,7 @@ window.tileOnClick = function (id) {
         currTile.set_collision(!currTile.get_collision());
     }
     else {
-        currTile.set_tile(curr_tile_id, curr_map_z_level);
+        currTile.set_tile(curr_tile, curr_map_z_level);
     }
 }
 
@@ -20,17 +20,17 @@ window.addEventListener('load', function () {
 })
 
 
-
-let curr_tile_id = 1;
-let last_floor_id = 1;
+let empty_tile_string = 'Empty,Empty,0,0,adb1964e-f4a2-47e4-ab58-0a3bba3ccb35'
+let curr_tile = empty_tile_string;
+let last_floor_tile = empty_tile_string;
 let last_floor_group = "grass";
-let last_wall_id = 1;
+let last_wall_tile = empty_tile_string;
 let last_wall_group = "cliffs";
-let last_scene_id = 1;
+let last_scene_tile = empty_tile_string;
 let last_scene_group = "trees";
 let curr_map_z_level = 1;
 let selecting_collision = false;
-let last_selection_id = 0;
+let last_selection_tile = empty_tile_string;
 
 let modal = document.getElementById('modal')
 let modal_select_group = document.getElementById('select-tile-group')
@@ -56,7 +56,7 @@ menu_tile_scenery.menu_init('scene', 1, 'SCENE')
 var modal_tile = new Tile({id:-1, tile_1:1})
 modal_tile.menu_init('modal-tile', 1, '')
 
-var curr_filename = 'NEW_FILE.lvl'
+var curr_filename = 'NEW_FILE'
 var curr_level_id = 'generate_new_uuid()'
 
 var modal_open = document.getElementById('modal-open')
@@ -81,14 +81,14 @@ window.bar_collision = function() {
 
 window.bar_delete = function() {
     var del_button = document.getElementById('del')
-    if (curr_tile_id != 0) {
-        last_selection_id = curr_tile_id
-        curr_tile_id = 0
+    if (curr_tile != empty_tile_string) {
+        last_selection_tile = curr_tile
+        curr_tile = empty_tile_string
         del.style.backgroundColor = "#E1E1E1"
         del.style.color = "#2D3134"
     }
     else {
-        curr_tile_id = last_selection_id
+        curr_tile = last_selection_tile
         del.style.backgroundColor = "#1A1A1A"
         del.style.color = "#F7F8FB"
     }
@@ -100,9 +100,12 @@ window.bar_save = function() {
 
 window.save_to_db = function() {
     let level = levelMain.get_tiles_export()
+    console.log(level)
     const data = {id: curr_level_id, name: curr_filename, data: level}
-    fetch(`/savelevel/${JSON.stringify(data)}`, {
-            method: 'POST',
+    // fetch(`/savelevel/${JSON.stringify(data)}`, {
+    fetch(`/savelevel`, {
+            "method": 'POST',
+            "body": JSON.stringify(data)
         })
         .then(function (response) {
             return response.text();
@@ -160,10 +163,12 @@ window.open_from_db = function(level) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-            console.log('GET response text: ');
-            levelMain.set_tiles_import(data[0][2]);
-            curr_filename = data[0][1];
+            console.log('GET response text: ')
+            //console.log(data)
+            levelMain.set_tiles_import(data[0][2])
+            curr_filename = data[0][1]
             menu_filename.value = curr_filename
+            curr_level_id = data[0][0]
         });
 }
 
@@ -171,9 +176,9 @@ window.menu_tile_floor = function () {
     curr_menu_type = "floor"
     levelMain.update_modal_group(curr_menu_type) 
     levelMain.update_modal_tiles(curr_menu_type, last_floor_group) 
-    modal_tile.set_tile(last_floor_id, 1)
+    modal_tile.set_tile(last_floor_tile, 1)
     modal_select_group.value = last_floor_group 
-    modal_select_tile.value = last_floor_id
+    modal_select_tile.value = last_floor_tile
     modal.style.display = 'block'
 }
 
@@ -181,9 +186,9 @@ window.menu_tile_wall = function () {
     curr_menu_type = "walls"
     levelMain.update_modal_group(curr_menu_type) 
     levelMain.update_modal_tiles(curr_menu_type, last_wall_group) 
-    modal_tile.set_tile(last_wall_id, 1)
+    modal_tile.set_tile(last_wall_tile, 1)
     modal_select_group.value = last_wall_group 
-    modal_select_tile.value = last_wall_id
+    modal_select_tile.value = last_wall_tile
     modal.style.display = 'block'
 }
 
@@ -191,9 +196,9 @@ window.menu_tile_scene = function () {
     curr_menu_type = "scenery"
     levelMain.update_modal_group(curr_menu_type) 
     levelMain.update_modal_tiles(curr_menu_type, last_scene_group) 
-    modal_tile.set_tile(last_scene_id, 1)
+    modal_tile.set_tile(last_scene_tile, 1)
     modal_select_group.value = last_scene_group 
-    modal_select_tile.value = last_scene_id
+    modal_select_tile.value = last_scene_tile
     modal.style.display = 'block'
 }
 
@@ -223,18 +228,18 @@ window.modal_group_select_update = function (value) {
 }
 
 window.modal_tile_select_update = function (value) {
-    curr_tile_id = value;
+    curr_tile = value;
     if (curr_menu_type == "floor") {
         menu_tile_floor.set_tile(value, 1)
-        last_floor_id = value
+        last_floor_tile = value
     }
     else if (curr_menu_type == "walls") {
         menu_tile_wall.set_tile(value, 1)
-        last_wall_id = value
+        last_wall_tile = value
     }
     else if (curr_menu_type == "scenery") {
         menu_tile_scenery.set_tile(value, 1)
-        last_scene_id = value
+        last_scene_tile = value
     }
     else {}
     modal_tile.set_tile(value, 1)

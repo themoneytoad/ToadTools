@@ -5,6 +5,7 @@ export class TileEditorMain {
     tile_size_x = 16
     tile_size_y = 16
     tile_name = ""
+    tile_id = null
     count = 0
     colors = [
         '#2e232f',
@@ -18,7 +19,8 @@ export class TileEditorMain {
         '#6b3e75','#905ea9','#a884f3','#eaaced','#743c54','#a24b6f','#ce657f',
         '#ed8099','#831c5d','#c32554','#f04f78','#f68181','#fca790','#fdcbb0'
     ]
-    zoom_value = 11;
+    opacity = 1.0
+    zoom_value = 11
 
     init() {
         console.log('init')
@@ -74,19 +76,20 @@ export class TileEditorMain {
         grid.style.height = `${screen.height * 0.85}px`
     }
 
-    bucket(pixelRef, color) {
-        var tmp = [pixelRef]
+    bucket(pixelRef, color, opacity) {
+        let convert = convert_hex_to_rgba(color, opacity)
+        let newColor = `rgba(${convert['r']},${convert['g']},${convert['b']},${convert['a']})`
+        var tmp = [pixelRef] // can get rid of? or need algo
         let row = pixelRef.loc_row - 1
         let col = pixelRef.loc_col - 1
-        this.flood_fill(row, col, pixelRef.color, color)
+        this.flood_fill(row, col, pixelRef.color, newColor)
     }
 
     flood_fill(row, col, target, color) {
         if (row < 0 || row >= this.pixels.length || col < 0 || col >= this.pixels[0].length || this.pixels[row][col].color == color) {
             return
         }
-
-        if (this.pixels[row][col].color != target) {
+        if (JSON.stringify(this.pixels[row][col].color) != JSON.stringify(target)) {
             return
         }
 
@@ -115,7 +118,7 @@ export class TileEditorMain {
             for (let j in this.pixels[i]) {
                 let pxl = this.pixels[i][j]
                 let color = pxl.color;
-                row.push(this.convert_hex_to_rgba(color, pxl.opacity))
+                row.push(convert_hex_to_rgba(color, pxl.opacity))
             }
             expt.push(row);
         }
@@ -125,7 +128,7 @@ export class TileEditorMain {
         }
         return jsn
     }
-
+/*
     convert_hex_to_rgba(color, opacity) {
         var test = {
            "r":0,
@@ -141,7 +144,7 @@ export class TileEditorMain {
                     c = [c[0], c[0], c[1], c[1], c[2], c[2]];
                 }
                 c = '0x'+c.join('');
-                test = {"r":(c>>16)&255,"g":(c>>8)&255, "b":c&255,"a":opacity};
+                test = {"r":(c>>16)&255,"g":(c>>8)&255, "b":c&255,"a":parseFloat(opacity)};
             }
             else {
                 let spt = color.split("(")
@@ -150,17 +153,13 @@ export class TileEditorMain {
                 test['r'] = parseInt(breakdown[0])
                 test['g'] = parseInt(breakdown[1])
                 test['b'] = parseInt(breakdown[2])
-                if (breakdown.length == 3) {
-                    test['a'] = opacity
-                }
-                else {
-                    test['a'] = parseInt(breakdown[3])
-                }
+                test['a'] = parseFloat(opacity)
             }
         }
+        console.log(opacity)
         return test
     }
-
+*/
     resize(size) {
         for (let i in this.pixels) {
             for (let j in this.pixels[i]) {

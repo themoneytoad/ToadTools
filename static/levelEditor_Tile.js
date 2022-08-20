@@ -15,6 +15,7 @@ export class Tile {
     loc = '0 / 0 / 0 / 0'
     tile_size = 128 // how many tiles can fit. 2048 / 8 px -> 256
     tile_background_zoom = '12800%' // zoom in on the tile for editor
+    db_id = null
 
 	constructor(conf) {
 		this.id = conf.id || null
@@ -24,6 +25,7 @@ export class Tile {
         this.collision = conf.collision || false
         this.loc_col = conf.loc_col || 0
         this.loc_row = conf.loc_row || 0
+        this.db_id = conf.db_id || null
 	}
     
     init() {
@@ -37,6 +39,7 @@ export class Tile {
         this.element.onmouseup = (e) => {window.tileOnClick(this.id)}
         this.img1 = document.createElement("div")
         this.img1.textContent = this.id
+        this.img1.style.color = "rgba(255,255,255,0.1)"
         this.img1.className = "tile-image"
         this.img1.style.backgroundImage = "url('/static/tileset.png')"
         this.img1.style.backgroundPosition = `${(this.tile_1%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_1/this.tile_size)*(100 / (this.tile_size-1))}%`
@@ -77,23 +80,27 @@ export class Tile {
         this.id = id
     }
 
-    set_tile(tilemap_index, z_index) {
-        if (typeof(tilemap_index) === "string") {
-            let txt = ""+tilemap_index
-            let row_col_group = txt.split(',')
-            tilemap_index = parseInt(row_col_group[0]) * 128 + parseInt(row_col_group[1])
-        }
-        if (z_index == 1) {
-            this.tile_1 = tilemap_index
-            this.img1.style.backgroundPosition = `${(this.tile_1%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_1/this.tile_size)*(100 / (this.tile_size-1))}%`
-        }
-        else if (z_index == 2) {
-            this.tile_2 = tilemap_index
-            this.img2.style.backgroundPosition = `${(this.tile_2%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_2/this.tile_size)*(100 / (this.tile_size-1))}%`
-        }
-        else if (z_index == 3) {
-            this.tile_3 = tilemap_index
-            this.img3.style.backgroundPosition = `${(this.tile_3%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_3/this.tile_size)*(100 / (this.tile_size-1))}%`
+    set_tile(tileRef, z_index) {
+        if (tileRef) {
+     
+            let breakdown = tileRef.split(',')
+            let tilemap_index = parseInt(breakdown[2]) * 128 + parseInt(breakdown[3])
+            let tileLoc = `${(tilemap_index%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(tilemap_index/this.tile_size)*(100 / (this.tile_size-1))}%`
+            if (z_index == 1) {
+                this.tile_1 = breakdown
+                //this.img1.style.backgroundPosition = `${(this.tile_1%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_1/this.tile_size)*(100 / (this.tile_size-1))}%`
+                this.img1.style.backgroundPosition = tileLoc
+            }
+            else if (z_index == 2) {
+                this.tile_2 = breakdown
+                //this.img2.style.backgroundPosition = `${(this.tile_2%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_2/this.tile_size)*(100 / (this.tile_size-1))}%`
+                this.img2.style.backgroundPosition = tileLoc
+            }
+            else if (z_index == 3) {
+                this.tile_3 = breakdown
+                //this.img3.style.backgroundPosition = `${(this.tile_3%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile_3/this.tile_size)*(100 / (this.tile_size-1))}%`
+                this.img3.style.backgroundPosition = tileLoc
+            }
         }
     }
 
@@ -103,9 +110,10 @@ export class Tile {
     }
 
     clear_tile() {
-        this.set_tile(0, 1); 
-        this.set_tile(0, 2); 
-        this.set_tile(0, 3);
+        let empty = 'Empty,Empty,0,0,adb1964e-f4a2-47e4-ab58-0a3bba3ccb35'
+        this.set_tile(empty, 1); 
+        this.set_tile(empty, 2); 
+        this.set_tile(empty, 3);
         this.set_collision(false);
     }
 
@@ -129,7 +137,7 @@ export class Tile {
     }
 
     get_tile_info() {
-        return {id: this.id, tile_1: this.tile_1, tile_2: this.tile_2, tile_3: this.tile_3, collision: this.collision}
+        return {id: this.id, tile_1: this.tile_1[4], tile_2: this.tile_2[4], tile_3: this.tile_3[4], collision: this.collision}
     }
 
 }
