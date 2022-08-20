@@ -14,6 +14,13 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 tile_filename = os.path.join(app.static_folder, 'levelEditor_List.json')
 
+@app.route('/exportlevels')
+def export_levels():
+    db.connect()
+    levels = db.execute_fetch(f"SELECT DISTINCT ON (name) * FROM levels ORDER BY name, updated_at DESC")
+    print(levels)
+    return "hello"
+
 @app.route('/listlevels/',methods=['GET'])
 def list_levels():
     db.connect()
