@@ -34,7 +34,7 @@ export class Tile {
         this.element.onmouseup = (e) => {window.tileOnClick(this.id)}
         this.img = document.createElement("div")
         this.img.textContent = this.id
-        this.img.style.color = "rgba(255,255,255,0.2)"
+        this.img.style.color = "rgba(255,255,255,0.05)"
         this.img.className = "tile-image"
         this.img.style.backgroundImage = "url('/static/tileset.png')"
         this.img.style.backgroundPosition = `${(this.tile%this.tile_size)*(100 / (this.tile_size-1))}% ${Math.floor(this.tile/this.tile_size)*(100 / (this.tile_size-1))}%`

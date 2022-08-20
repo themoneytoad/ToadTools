@@ -42,10 +42,10 @@ def load_tile(name):
     db.close()
     return jsonify(level)
 
-@app.route('/savelevel/<level>',methods=['POST'])
-def save_level(level):
+@app.route('/savelevel',methods=['POST'])
+def save_level():
     db.connect()
-    data = json.loads(level)
+    data = json.loads(request.data)
     #print(type((data['data'])))
     if (data['id'] != 'generate_new_uuid()'):
         db.execute_query(f"UPDATE levels SET name='{data['name']}', data={Json(data['data'])} WHERE id='{data['id']}';")
@@ -58,7 +58,6 @@ def save_level(level):
 def save_tile(tile):
     db.connect()
     data = json.loads(tile)
-    #print(type((data['data'])))
     if (data['id'] != 'generate_new_uuid()'):
         db.execute_query(f"UPDATE tiles SET name='{data['name']}', location_column='{data['loc_col']}', location_row='{data['loc_row']}', number_of_pixels='{data['size']}', tile_group='{data['group']}', pixels={Json(data['pixels'])} WHERE id='{data['id']}';")
     else:
@@ -70,7 +69,6 @@ def save_tile(tile):
 def save_tile_map(tile):
     db.connect()
     data = json.loads(tile)
-    #print(type((data['data'])))
     db.execute_query(f"UPDATE tiles SET name='{data['name']}', location_column='{data['loc_col']}', location_row='{data['loc_row']}', tile_group='{data['group']}' WHERE id='{data['id']}';")
     db.close()
     return "Success"
@@ -114,7 +112,7 @@ def grab_tileset(filename):
 @app.route('/level')
 def level():
     db.connect()
-    tiles = db.execute_fetch(f"SELECT DISTINCT ON (name) name, tile_group, location_row, location_column FROM tiles ORDER BY name, updated_at DESC")
+    tiles = db.execute_fetch(f"SELECT DISTINCT ON (name) name, tile_group, location_row, location_column, id FROM tiles ORDER BY name, updated_at DESC")
     db.close()
     return render_template("level.html", tiles=tiles)
 

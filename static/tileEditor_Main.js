@@ -76,19 +76,20 @@ export class TileEditorMain {
         grid.style.height = `${screen.height * 0.85}px`
     }
 
-    bucket(pixelRef, color) {
-        var tmp = [pixelRef]
+    bucket(pixelRef, color, opacity) {
+        let convert = convert_hex_to_rgba(color, opacity)
+        let newColor = `rgba(${convert['r']},${convert['g']},${convert['b']},${convert['a']})`
+        var tmp = [pixelRef] // can get rid of? or need algo
         let row = pixelRef.loc_row - 1
         let col = pixelRef.loc_col - 1
-        this.flood_fill(row, col, pixelRef.color, color)
+        this.flood_fill(row, col, pixelRef.color, newColor)
     }
 
     flood_fill(row, col, target, color) {
         if (row < 0 || row >= this.pixels.length || col < 0 || col >= this.pixels[0].length || this.pixels[row][col].color == color) {
             return
         }
-
-        if (this.pixels[row][col].color != target) {
+        if (JSON.stringify(this.pixels[row][col].color) != JSON.stringify(target)) {
             return
         }
 

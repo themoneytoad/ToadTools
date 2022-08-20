@@ -32,10 +32,20 @@ export class LevelEditorMain {
 
             }
         }
+        
+        this.clear_all_tiles()
     }
 
     get_tile(id) {
         return this.tiles[id]
+    }
+
+    get_tile_by_db_id(id) {
+        for (let i in tileset) {
+            if (id == tileset[i][4]) {
+                return `${tileset[i][0]},${tileset[i][1]},${tileset[i][2]},${tileset[i][3]},${tileset[i][4]}`
+            }
+        }
     }
 
     toggle_collision_visible(visible) {
@@ -71,9 +81,9 @@ export class LevelEditorMain {
         for (let i in tileset) {
             if (tileset[i][1] === group) {
                 var opt = document.createElement('option')
-                opt.value = `${tileset[i][2]},${tileset[i][3]}`
+                //opt.value = `${tileset[i][2]},${tileset[i][3]}`
+                opt.value = tileset[i]
                 opt.innerHTML = tileset[i][0]
-                console.log(opt.value)
                 tile_select.appendChild(opt)
             }
         }
@@ -106,9 +116,9 @@ export class LevelEditorMain {
         for (let i in this.tiles) {
             let tile = this.tiles[i]
             tile.clear_tile()
-            tile.set_tile(data['level_1'][i], 1)
-            tile.set_tile(data['level_2'][i], 2)
-            tile.set_tile(data['level_3'][i], 3)
+            tile.set_tile(this.get_tile_by_db_id(data['level_1'][i]), 1)
+            tile.set_tile(this.get_tile_by_db_id(data['level_2'][i]), 2)
+            tile.set_tile(this.get_tile_by_db_id(data['level_3'][i]), 3)
             tile.set_collision(data['collision'][i])
             tile.toggle_collision_visible(false)
         }

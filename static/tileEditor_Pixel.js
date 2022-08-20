@@ -4,7 +4,7 @@ export class Pixel {
     loc_col = 0;
     loc_row = 0;
     loc = '0 / 0 / 0 / 0'
-    color = "";
+    color = 'rgba(0,0,0,0)';
     opacity = 1
 
 	constructor(conf) {
@@ -31,13 +31,9 @@ export class Pixel {
     }
 
     set_color(color, opacity) {
-        this.color = convert_hex_to_rgba(color,opacity)
+        this.color = convert_hex_to_rgba(color, opacity)
         this.element.style.backgroundColor = `rgba(${this.color['r']}, ${this.color['g']}, ${this.color['b']}, ${this.color['a']})` 
-        this.opacity = 1
-    //    this.element.opacity = 1
-        if (opacity) {
-            this.opacity = opacity
-        }
+        this.opacity = this.color['a']
     }
 
     set_color_import(color) {
