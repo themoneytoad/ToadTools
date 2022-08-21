@@ -2,3 +2,5 @@
 .tar
 etc/
 dev/
+var/
+tileset.png

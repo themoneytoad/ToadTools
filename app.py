@@ -14,6 +14,48 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 tile_filename = os.path.join(app.static_folder, 'levelEditor_List.json')
 
+@app.route('/exportlevels')
+def export_levels():
+    db.connect()
+    tiles = {}
+    tiles_import = db.execute_fetch(f"SELECT DISTINCT ON (name) * FROM tiles ORDER BY name, updated_at DESC")
+    for tile in tiles_import:
+        tile_id = tile[0]
+        tile_col = tile[2]
+        tile_row = tile[7]
+        tiles[tile_id] = [tile_col, tile_row]
+    #print(tiles)
+    levels_import = db.execute_fetch(f"SELECT DISTINCT ON (name) * FROM levels ORDER BY name, updated_at DESC")
+    for level in levels_import:
+        name = level[1]
+        l1 = level[2]["level_1"]
+        l2 = level[2]["level_2"]
+        l3 = level[2]["level_3"]
+        col = level[2]['collision']
+        # TODO Change me before deploy
+        with open(f'/media/{name}.lvl', 'wb') as file:
+        #with open(f'media/{name}.lvl', 'wb') as file:
+            file.write((65000).to_bytes(2, byteorder='big'))
+            for tile in l1:
+                #print(tiles[tile])
+                file.write((tiles[tile][0]).to_bytes(2, byteorder='big'))
+                file.write((tiles[tile][1]).to_bytes(2, byteorder='big'))
+            file.write((65000).to_bytes(2, byteorder='big'))
+            for tile in l2:
+                #print(tiles[tile])
+                file.write((tiles[tile][0]).to_bytes(2, byteorder='big'))
+                file.write((tiles[tile][1]).to_bytes(2, byteorder='big'))
+            file.write((65000).to_bytes(2, byteorder='big'))
+            for tile in l3:
+                #print(tiles[tile])
+                file.write((tiles[tile][0]).to_bytes(2, byteorder='big'))
+                file.write((tiles[tile][1]).to_bytes(2, byteorder='big'))
+            file.write((65000).to_bytes(2, byteorder='big'))
+            for c in col:
+                #print(c)
+                file.write((c).to_bytes(2, byteorder='big'))
+    return "hello"
+
 @app.route('/listlevels/',methods=['GET'])
 def list_levels():
     db.connect()
